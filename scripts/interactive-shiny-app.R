@@ -10,9 +10,19 @@ library(tidyverse)
 # ui
 ui <- fluidPage(
   titlePanel("Interactive Reading Application"),
-  textInput(inputId = "user_input",
-            label = "Enter your greeting: ",
-            value = "Hello, World!"),
+  
+  # could use radioButtons and textInput as well in place of selectInput
+  selectInput(
+    inputId = "user_input",
+    label = "Choose your greeting:",
+    choices = c("Hello, World", "Howdy!", "What's up?"),
+    selected = "What's up?"
+  ),
+  
+  textInput(
+    inputId = "name",
+    label = "What is your name?"
+  ),
   
   textOutput(outputId = "greeting")
 )
@@ -20,7 +30,7 @@ ui <- fluidPage(
 # server
 server <- function(input, output){
   output$greeting <- renderText({
-    paste0(input$use_input)
+    paste0(input$use_input, input$name)
   })
 }
 
